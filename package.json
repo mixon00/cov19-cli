@@ -24,5 +24,11 @@
   "bugs": {
     "url": "https://github.com/mixon00/cov19-cli/issues"
   },
-  "homepage": "https://cov19.js.org"
+  "homepage": "https://cov19.js.org",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "commander": "^5.1.0",
+    "node-fetch": "^2.6.0",
+    "ora": "^4.0.4"
+  }
 }
