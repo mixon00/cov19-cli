@@ -1,0 +1,28 @@
+{
+  "name": "@mixon00/cov19",
+  "version": "0.0.1",
+  "description": "COVID-19 CLI Tool",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mixon00/cov19-cli.git"
+  },
+  "keywords": [
+    "covid",
+    "covid-19",
+    "cli",
+    "nodejs"
+  ],
+  "preferGlobal": true,
+  "bin": {
+    "cov19": "./bin/index.js"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "author": "Mateusz Misztoft <mixon00@gmail.com> (http://https://twitter.com/mixon00/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mixon00/cov19-cli/issues"
+  },
+  "homepage": "https://cov19.js.org"
+}
