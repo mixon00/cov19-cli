@@ -5,33 +5,45 @@ const chalk = require('chalk');
 const fetch = require('node-fetch');
 const ora = require('ora');
 const { program } = require('commander');
+const Configstore = require('configstore');
 
 const pkg = require(path.join(__dirname, '../package.json'));
+const cache = new Configstore(pkg.name, { lastUpdate: null, data: null });
 
 const defaultCmd = require('./commands/default.cmd');
 const byCountry = require('./commands/byCountry.cmd');
 
 const logo = require('./utils/logo.util');
+const api = require('./constants/api.constant');
 
 logo();
 
 (async () => {
   const spinner = ora('Fetching data').start();
   try {
-    const response = await fetch('https://cov19.cc/report.json');
-    const json = await response.json();
+    const lastUpdateResponse = await fetch(api.last_update);
+    const lastUpdate = await lastUpdateResponse.text();
+
+    if (cache.get('lastUpdate') !== lastUpdate) {
+      const reportResponse = await fetch(api.report);
+      const data = await reportResponse.json();
+
+      cache.set('lastUpdate', lastUpdate);
+      cache.set('data', data);
+    }
+
+    let report = cache.get('data');
+
     spinner.stop();
 
     if (!process.argv.slice(2).length) {
-      defaultCmd(json);
+      defaultCmd(report);
     }
 
     program
       .version(pkg.version)
       .description(pkg.description)
-      .option('-c, --country [name or code]', 'Show stats for selected country', (name) =>
-        byCountry(name, json)
-      )
+      .option('-c, --country [name or code]', 'Show stats for selected country', (name) => byCountry(name, report))
       .on('command:*', () => {
         console.error(`${chalk.red('Invalid command: ', program.args.join(' '))}\n`);
 
@@ -44,5 +56,6 @@ logo();
     spinner.stop();
     console.error(chalk.red('Error - unable fetch data!'));
     console.error(chalk.red(error));
+    process.exit(1);
   }
 })();

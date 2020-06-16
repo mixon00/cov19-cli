@@ -32,6 +32,7 @@
     "chalk": "^4.1.0",
     "cli-table3": "^0.6.0",
     "commander": "^5.1.0",
+    "configstore": "^5.0.1",
     "figlet": "^1.4.0",
     "node-emoji": "^1.10.0",
     "node-fetch": "^2.6.0",
