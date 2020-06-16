@@ -1,6 +1,6 @@
 {
   "name": "@mixon00/cov19",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "COVID-19 CLI Tool",
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
     "chalk": "^4.1.0",
     "cli-table3": "^0.6.0",
     "commander": "^5.1.0",
+    "figlet": "^1.4.0",
     "node-emoji": "^1.10.0",
     "node-fetch": "^2.6.0",
     "ora": "^4.0.4"
