@@ -8,7 +8,7 @@ module.exports = (data) => {
     },
   });
 
-  Array.isArray(data) ? data.forEach((row) => table.push(row)) : table.push(data);
+  Array.isArray(data[0]) ? data.forEach((row) => table.push(row)) : table.push(data);
 
   return table;
 };

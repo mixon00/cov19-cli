@@ -1,4 +1,5 @@
 # cov19
+
 [![npm](https://img.shields.io/npm/v/@mixon/cov19.svg)][npm-link]
 [![license](https://img.shields.io/github/license/mixon00/cov19-cli.svg)][mit-license]
 [![npm](https://img.shields.io/npm/dm/@mixon00/cov19.svg)][npm-link]
@@ -14,24 +15,28 @@ $ npm i -g @mixon00/cov19
 
 ## Usage
 
-### Get global and and watched stats
+### Get stats for world and watched countries
 
 ```sh
 $ cov19
 ```
+
 <p align="center">
  <img src="https://raw.githubusercontent.com/mixon00/cov19-cli/master/docs/render1592273488790.gif">
 </p>
 
-### Get stats for slectec country by country name or country code 
+### Get stats for country by country name
+
+```sh
+$ cov19 -c Poland
+```
+
+### or country code
 
 ```sh
 $ cov19 -c pl
 ```
 
-```sh
-$ cov19 -c Poland
-```
 <p align="center">
  <img src="https://raw.githubusercontent.com/mixon00/cov19-cli/master/docs/render1592313621369.gif">
 </p>
