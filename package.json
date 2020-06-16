@@ -2,6 +2,9 @@
   "name": "@mixon00/cov19",
   "version": "0.2.0",
   "description": "COVID-19 CLI Tool",
+  "files": [
+    "/bin"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mixon00/cov19-cli.git"
