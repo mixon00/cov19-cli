@@ -27,7 +27,9 @@
   "homepage": "https://cov19.js.org",
   "dependencies": {
     "chalk": "^4.1.0",
+    "cli-table3": "^0.6.0",
     "commander": "^5.1.0",
+    "node-emoji": "^1.10.0",
     "node-fetch": "^2.6.0",
     "ora": "^4.0.4"
   }

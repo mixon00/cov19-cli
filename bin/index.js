@@ -11,5 +11,5 @@ program.version(pkg.version).description(pkg.description);
 program.parse(process.argv);
 
 if (!process.argv.slice(2).length) {
-	defaultCmd();
+  defaultCmd();
 }
