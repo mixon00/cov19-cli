@@ -14,7 +14,7 @@ Get global and and watched stats
 $ cov19
 ```
 <p align="center">
- <img src="https://github.com/mixon00/cov19-cli/blob/master/docs/render1592273488790.gif">
+ <img src="https://raw.githubusercontent.com/mixon00/cov19-cli/master/docs/render1592273488790.gif">
 </p>
 
 ## Prerequisites
