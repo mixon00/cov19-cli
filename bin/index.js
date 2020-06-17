@@ -40,18 +40,26 @@ logo();
       defaultCmd(report);
     }
 
+    program.version(pkg.version).description(pkg.description);
+
     program
-      .version(pkg.version)
-      .description(pkg.description)
-      .option('-c, --country [name or code]', 'Show stats for selected country', (name) => byCountry(name, report))
-      .on('command:*', () => {
-        console.error(`${chalk.red('Invalid command: ', program.args.join(' '))}\n`);
+      .arguments('[country]')
+      .description('Show stats for selected country by country name, code or state')
+      .action((country) => {
+        if (country) {
+          byCountry(country, report);
+        }
+      });
 
-        program.outputHelp((help) => chalk.yellowBright(help));
+    program.on('command:*', () => {
+      console.error(`${chalk.red('Invalid command: ', program.args.join(' '))}\n`);
 
-        process.exit(1);
-      })
-      .parse(process.argv);
+      program.outputHelp((help) => chalk.yellowBright(help));
+
+      process.exit(1);
+    });
+
+    program.parse(process.argv);
   } catch (error) {
     spinner.stop();
     console.error(chalk.red('Error - unable fetch data!'));

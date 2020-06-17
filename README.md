@@ -28,17 +28,23 @@ $ cov19
 ### Get stats for country by country name
 
 ```sh
-$ cov19 -c Poland
+$ cov19 Poland
 ```
 
 ### or country code
 
 ```sh
-$ cov19 -c pl
+$ cov19 pl
+```
+
+### or state
+
+```sh
+$ cov19 "New York"
 ```
 
 <p align="center">
- <img src="https://raw.githubusercontent.com/mixon00/cov19-cli/master/docs/render1592313621369.gif">
+ <img src="https://raw.githubusercontent.com/mixon00/cov19-cli/master/docs/render1592406947334.gif">
 </p>
 
 ## Prerequisites

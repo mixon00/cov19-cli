@@ -11,7 +11,8 @@ const format = (val) => {
 
 const filterCountries = (name, country) =>
   (country.country && country.country.toLowerCase() === name.toLowerCase()) ||
-  (country.country_code && country.country_code === name.toLowerCase());
+  (country.country_code && country.country_code === name.toLowerCase()) ||
+  (country.state && country.state.toLowerCase() === name.toLowerCase());
 
 module.exports = (name, json) => {
   let countries = json.regions.world.list.filter((country) => filterCountries(name, country));
