@@ -1,6 +1,6 @@
 {
   "name": "@mixon00/cov19",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "description": "COVID-19 CLI Tool",
   "files": [
     "/bin"
@@ -8,6 +8,11 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mixon00/cov19-cli.git"
+  },
+  "scripts": {
+    "patch": "npx standard-version --release-as patch",
+    "minor": "npx standard-version --release-as minor",
+    "major": "npx standard-version --release-as major"
   },
   "keywords": [
     "covid",
@@ -33,6 +38,7 @@
     "cli-table3": "^0.6.0",
     "commander": "^5.1.0",
     "configstore": "^5.0.1",
+    "enquirer": "^2.3.5",
     "figlet": "^1.4.0",
     "node-fetch": "^2.6.0",
     "ora": "^4.0.4"
