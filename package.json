@@ -9,6 +9,11 @@
     "type": "git",
     "url": "git+https://github.com/mixon00/cov19-cli.git"
   },
+  "scripts": {
+    "patch": "npx standard-version --release-as patch",
+    "minor": "npx standard-version --release-as minor",
+    "major": "npx standard-version --release-as major"
+  },
   "keywords": [
     "covid",
     "covid-19",
