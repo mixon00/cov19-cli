@@ -8,10 +8,11 @@ const { program } = require('commander');
 const Configstore = require('configstore');
 
 const pkg = require(path.join(__dirname, '../package.json'));
-const cache = new Configstore(pkg.name, { lastUpdate: null, data: null });
+const cache = new Configstore(pkg.name, { lastUpdate: null, data: null, favs: [] });
 
 const defaultCmd = require('./commands/default.cmd');
-const byCountry = require('./commands/byCountry.cmd');
+const byCountryCmd = require('./commands/byCountry.cmd');
+const addCmd = require('./commands/add.cmd');
 
 const logo = require('./utils/logo.util');
 const api = require('./constants/api.constant');
@@ -37,7 +38,7 @@ logo();
     spinner.stop();
 
     if (!process.argv.slice(2).length) {
-      defaultCmd(report);
+      defaultCmd(report, cache);
     }
 
     program.version(pkg.version).description(pkg.description);
@@ -45,9 +46,20 @@ logo();
     program
       .arguments('[country]')
       .description('Show stats for selected country by country name, code or state')
-      .action((country) => {
+      .option('-a, --add', 'Add to favourites')
+      .option('-r, --remove', 'Remove from favourites')
+      .action((country, cmd) => {
+        if (cmd.add && cmd.remove) {
+          console.error(chalk.red('Choose only one option: --add or --remove'));
+          return process.exit(1);
+        }
+
+        if (cmd.add) {
+          return addCmd(country, report, cache);
+        }
+
         if (country) {
-          byCountry(country, report);
+          return byCountryCmd(country, report);
         }
       });
 
