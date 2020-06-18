@@ -13,6 +13,7 @@ const cache = new Configstore(pkg.name, { lastUpdate: null, data: null, favs: []
 const defaultCmd = require('./commands/default.cmd');
 const byCountryCmd = require('./commands/byCountry.cmd');
 const addCmd = require('./commands/add.cmd');
+const removeCmd = require('./commands/remove.cmd');
 
 const logo = require('./utils/logo.util');
 const api = require('./constants/api.constant');
@@ -56,6 +57,10 @@ logo();
 
         if (cmd.add) {
           return addCmd(country, report, cache);
+        }
+
+        if (cmd.remove) {
+          return removeCmd(country, cache);
         }
 
         if (country) {
