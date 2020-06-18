@@ -2,7 +2,6 @@
 
 const path = require('path');
 const chalk = require('chalk');
-const fetch = require('node-fetch');
 const ora = require('ora');
 const { program } = require('commander');
 const Configstore = require('configstore');
@@ -19,74 +18,73 @@ const listCmd = require('./commands/list.cmd');
 const logo = require('./utils/logo.util');
 const api = require('./constants/api.constant');
 
+const lastUpdateService = require('./services/lastUpdate.service');
+const reportService = require('./services/report.service');
+
 logo();
 
+const hasUpdatedData = async () => {
+  const spinner = ora('Checking if data is updated').start();
+  const lastUpdate = await lastUpdateService();
+
+  if (cache.get('lastUpdate') !== lastUpdate) {
+    spinner.text = 'Fetching data';
+    const report = await reportService();
+
+    cache.set('lastUpdate', lastUpdate);
+    cache.set('report', report);
+  }
+
+  spinner.stop();
+};
+
 (async () => {
-  const spinner = ora('Fetching data').start();
-  try {
-    const lastUpdateResponse = await fetch(api.last_update);
-    const lastUpdate = await lastUpdateResponse.text();
+  if (!process.argv.slice(2).length) {
+    await hasUpdatedData();
+    defaultCmd(cache);
+  }
 
-    if (cache.get('lastUpdate') !== lastUpdate) {
-      const reportResponse = await fetch(api.report);
-      const data = await reportResponse.json();
+  program.version(pkg.version).description(pkg.description);
 
-      cache.set('lastUpdate', lastUpdate);
-      cache.set('data', data);
-    }
+  program
+    .arguments('[country]')
+    .description('Show stats for selected country by country name, code or state')
+    .option('-a, --add', 'Add to favourites')
+    .option('-r, --remove', 'Remove from favourites')
+    .option('-l, --list', 'Show list of favourites')
+    .action(async (country, cmd) => {
+      if (cmd.add && cmd.remove) {
+        console.error(chalk.red('Choose only one option: --add or --remove'));
+        return process.exit(1);
+      }
 
-    let report = cache.get('data');
+      if (cmd.add) {
+        await hasUpdatedData();
+        return addCmd(country, cache);
+      }
 
-    spinner.stop();
+      if (cmd.remove) {
+        return removeCmd(country, cache);
+      }
 
-    if (!process.argv.slice(2).length) {
-      defaultCmd(report, cache);
-    }
+      if (country) {
+        await hasUpdatedData();
+        const report = cache.get('report')
+        return byCountryCmd(country, report);
+      }
 
-    program.version(pkg.version).description(pkg.description);
-
-    program
-      .arguments('[country]')
-      .description('Show stats for selected country by country name, code or state')
-      .option('-a, --add', 'Add to favourites')
-      .option('-r, --remove', 'Remove from favourites')
-      .option('-l, --list', 'Show list of favourites')
-      .action((country, cmd) => {
-        if (cmd.add && cmd.remove) {
-          console.error(chalk.red('Choose only one option: --add or --remove'));
-          return process.exit(1);
-        }
-
-        if (cmd.add) {
-          return addCmd(country, report, cache);
-        }
-
-        if (cmd.remove) {
-          return removeCmd(country, cache);
-        }
-
-        if (country) {
-          return byCountryCmd(country, report);
-        }
-
-        if (cmd.list) {
-          return listCmd(cache);
-        }
-      });
-
-    program.on('command:*', () => {
-      console.error(`${chalk.red('Invalid command: ', program.args.join(' '))}\n`);
-
-      program.outputHelp((help) => chalk.yellowBright(help));
-
-      process.exit(1);
+      if (cmd.list) {
+        return listCmd(cache);
+      }
     });
 
-    program.parse(process.argv);
-  } catch (error) {
-    spinner.stop();
-    console.error(chalk.red('Error - unable fetch data!'));
-    console.error(chalk.red(error));
+  program.on('command:*', () => {
+    console.error(`${chalk.red('Invalid command: ', program.args.join(' '))}\n`);
+
+    program.outputHelp((help) => chalk.yellowBright(help));
+
     process.exit(1);
-  }
+  });
+
+  program.parse(process.argv);
 })();

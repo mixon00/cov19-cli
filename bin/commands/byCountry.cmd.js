@@ -10,8 +10,12 @@ const format = (val) => {
   return val;
 };
 
-module.exports = (name, json) => {
-  let countries = filterData(name, json);
+module.exports = (name, report) => {
+  let countries = filterData(name, report);
+
+  if (countries.length === 0) {
+    return console.log(`${chalk.redBright('Failure')}: nothing found for ${chalk.blue.bold(name)}.\n`);
+  }
 
   const dataTable = table(
     countries.map(

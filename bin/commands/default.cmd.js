@@ -2,9 +2,10 @@ const chalk = require('chalk');
 const table = require('../utils/table.util');
 const byCountry = require('./byCountry.cmd');
 
-module.exports = async (json, data) => {
-  const { confirmed, recovered, deaths, critical, tests } = json.regions.world.totals;
+module.exports = async (data) => {
   const favs = data.get('favs');
+  const report = data.get('report');
+  const { confirmed, recovered, deaths, critical, tests } = report.regions.world.totals;
   const results = [
     [
       chalk.bold.white('Worldwide'),
@@ -22,6 +23,6 @@ module.exports = async (json, data) => {
 
   if (favs.length > 0) {
     console.log(chalk.bold('\n Favourites:'));
-    byCountry(favs, json);
+    byCountry(favs, report);
   }
 };

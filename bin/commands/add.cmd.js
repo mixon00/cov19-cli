@@ -2,8 +2,9 @@ const chalk = require('chalk');
 const filterData = require('../utils/filterData.util');
 const { MultiSelect } = require('enquirer');
 
-module.exports = async (name, json, data) => {
-  const countries = filterData(name, json);
+module.exports = async (name, data) => {
+  const report = data.get('report');
+  const countries = filterData(name, report);
   let favs = data.get('favs');
 
   if (countries.length === 0) {

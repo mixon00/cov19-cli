@@ -3,28 +3,28 @@ const filterCountries = (name, country) =>
   (country.country_code && country.country_code === name.toLowerCase()) ||
   (country.state && country.state.toLowerCase() === name.toLowerCase());
 
-const filterAll = (name, json) => {
-  let countries = json.regions.world.list.filter((country) => filterCountries(name, country));
-  countries = [...countries, ...json.regions.unitedstates.list.filter((country) => filterCountries(name, country))];
-  countries = [...countries, ...json.regions.canada.list.filter((country) => filterCountries(name, country))];
-  countries = [...countries, ...json.regions.china.list.filter((country) => filterCountries(name, country))];
-  countries = [...countries, ...json.regions.australia.list.filter((country) => filterCountries(name, country))];
-  countries = [...countries, ...json.regions.ships.list.filter((country) => filterCountries(name, country))];
-  countries = [...countries, ...json.regions.italy.list.filter((country) => filterCountries(name, country))];
-  countries = [...countries, ...json.regions.italy.list.filter((country) => filterCountries(name, country))];
-  countries = [...countries, ...json.regions.russia.list.filter((country) => filterCountries(name, country))];
-  countries = [...countries, ...json.regions.ireland.list.filter((country) => filterCountries(name, country))];
+const filterAll = (name, report) => {
+  let countries = report.regions.world.list.filter((country) => filterCountries(name, country));
+  countries = [...countries, ...report.regions.unitedstates.list.filter((country) => filterCountries(name, country))];
+  countries = [...countries, ...report.regions.canada.list.filter((country) => filterCountries(name, country))];
+  countries = [...countries, ...report.regions.china.list.filter((country) => filterCountries(name, country))];
+  countries = [...countries, ...report.regions.australia.list.filter((country) => filterCountries(name, country))];
+  countries = [...countries, ...report.regions.ships.list.filter((country) => filterCountries(name, country))];
+  countries = [...countries, ...report.regions.italy.list.filter((country) => filterCountries(name, country))];
+  countries = [...countries, ...report.regions.italy.list.filter((country) => filterCountries(name, country))];
+  countries = [...countries, ...report.regions.russia.list.filter((country) => filterCountries(name, country))];
+  countries = [...countries, ...report.regions.ireland.list.filter((country) => filterCountries(name, country))];
 
   return countries;
 };
 
-module.exports = (name, json) => {
+module.exports = (name, report) => {
   let filteredCountries = [];
 
   if (Array.isArray(name)) {
-    name.forEach((n) => (filteredCountries = [...filteredCountries, filterAll(n, json)[0]]));
+    name.forEach((n) => (filteredCountries = [...filteredCountries, filterAll(n, report)[0]]));
   } else {
-    filteredCountries = [...filterAll(name, json)];
+    filteredCountries = [...filterAll(name, report)];
   }
 
   return filteredCountries;
