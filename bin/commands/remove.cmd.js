@@ -6,7 +6,7 @@ module.exports = async (name, data) => {
 
   if (name) {
     if (favs.includes(name)) {
-      data.set('fav', ...favs.filter((ele) => ele !== name));
+      data.set('favs', [...favs.filter((ele) => ele !== name)]);
       return console.log(`${chalk.greenBright('Success')}: ${chalk.blue.bold(name)} removed from favourites.\n`);
     } else {
       return console.log(`${chalk.redBright('Failure')}: ${chalk.blue.bold(name)} not found in favorites.\n`);
