@@ -14,6 +14,7 @@ const defaultCmd = require('./commands/default.cmd');
 const byCountryCmd = require('./commands/byCountry.cmd');
 const addCmd = require('./commands/add.cmd');
 const removeCmd = require('./commands/remove.cmd');
+const listCmd = require('./commands/list.cmd');
 
 const logo = require('./utils/logo.util');
 const api = require('./constants/api.constant');
@@ -49,6 +50,7 @@ logo();
       .description('Show stats for selected country by country name, code or state')
       .option('-a, --add', 'Add to favourites')
       .option('-r, --remove', 'Remove from favourites')
+      .option('-l, --list', 'Show list of favourites')
       .action((country, cmd) => {
         if (cmd.add && cmd.remove) {
           console.error(chalk.red('Choose only one option: --add or --remove'));
@@ -65,6 +67,10 @@ logo();
 
         if (country) {
           return byCountryCmd(country, report);
+        }
+
+        if (cmd.list) {
+          return listCmd(cache);
         }
       });
 
