@@ -27,7 +27,7 @@
   "engines": {
     "node": ">=8.0.0"
   },
-  "author": "Mateusz Misztoft <mixon00@gmail.com> (http://https://twitter.com/mixon00/)",
+  "author": "Mateusz Misztoft <mixon00@gmail.com> (https://misztoft.pl)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mixon00/cov19-cli/issues"
