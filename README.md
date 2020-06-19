@@ -1,4 +1,6 @@
-# cov19
+<p align="center">
+ <img src="https://repository-images.githubusercontent.com/272448130/983ae580-b23c-11ea-874a-e8ce6fc2d7f5">
+</p>
 
 [![npm](https://img.shields.io/npm/v/@mixon00/cov19.svg)][npm-link]
 [![license](https://img.shields.io/github/license/mixon00/cov19-cli.svg)][mit-license]
