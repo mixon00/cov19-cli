@@ -37,7 +37,7 @@ module.exports = (name, report, cmd, trend) => {
           ],
         ];
 
-        if (cmd.stats) {
+        if (cmd && cmd.stats) {
           const barsConfig = { colors: [asciichart.red, asciichart.blue, asciichart.green], height: 15 };
           const trends = trend[`${(country + (state ? state : '')).replace(/\s/g, '').toLowerCase()}`];
           if (trends) {
@@ -69,7 +69,7 @@ module.exports = (name, report, cmd, trend) => {
       .reduce((a, b) => a.concat(b))
   );
 
-  if (cmd.limit) {
+  if (cmd && cmd.limit) {
     const hasStats = cmd.stats ? 2 : 1;
     if (cmd.limit.includes(':')) {
       const [from, limit] = cmd.limit.split(':').map((val) => parseInt(val, 10));

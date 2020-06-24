@@ -14,9 +14,9 @@ const byCountryCmd = require('./commands/byCountry.cmd');
 const addCmd = require('./commands/add.cmd');
 const removeCmd = require('./commands/remove.cmd');
 const listCmd = require('./commands/list.cmd');
+const aboutCmd = require('./commands/about.cmd');
 
 const logo = require('./utils/logo.util');
-const api = require('./constants/api.constant');
 
 const lastUpdateService = require('./services/lastUpdate.service');
 const reportService = require('./services/report.service');
@@ -59,6 +59,7 @@ const hasUpdatedData = async () => {
     .option('-f, --favourites', 'Show list of favourites')
     .option('-s, --stats', 'Show detailed stats')
     .option('-l, --limit <limit>', 'Limit the results by passing <limit> or <from:limit>')
+    .option('--about', 'Show about')
     .action(async (country, cmd) => {
       if (cmd.add && cmd.remove) {
         console.error(chalk.red('Choose only one option: --add or --remove'));
@@ -89,7 +90,11 @@ const hasUpdatedData = async () => {
         await hasUpdatedData();
         const report = cache.get('report');
         const trend = cache.get('trend');
-        return defaultCmd(cache, cmd.stats, trend);
+        return defaultCmd(cache, cmd, trend);
+      }
+
+      if (cmd.about) {
+        aboutCmd();
       }
     });
 
