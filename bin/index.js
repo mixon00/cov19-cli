@@ -58,6 +58,7 @@ const hasUpdatedData = async () => {
     .option('-r, --remove', 'Remove from favourites')
     .option('-f, --favourites', 'Show list of favourites')
     .option('-s, --stats', 'Show detailed stats')
+    .option('-l, --limit <limit>', 'Limit the results by passing <limit> or <from:limit>')
     .action(async (country, cmd) => {
       if (cmd.add && cmd.remove) {
         console.error(chalk.red('Choose only one option: --add or --remove'));
@@ -77,7 +78,7 @@ const hasUpdatedData = async () => {
         await hasUpdatedData();
         const report = cache.get('report');
         const trend = cache.get('trend');
-        return byCountryCmd(country, report, cmd.stats, trend);
+        return byCountryCmd(country, report, cmd, trend);
       }
 
       if (cmd.favourites) {

@@ -11,14 +11,14 @@ const format = (val) => {
   return val;
 };
 
-module.exports = (name, report, showStats, trend) => {
+module.exports = (name, report, cmd, trend) => {
   let countries = filterData(name, report);
 
   if (countries.length === 0) {
     return console.log(`${chalk.redBright('Failure')}: nothing found for ${chalk.blue.bold(name)}.\n`);
   }
 
-  const dataTable = table(
+  let dataTable = table(
     countries
       .map(({ confirmed, recovered, deaths, critical, tests, country, daily_confirmed, daily_deaths, state }) => {
         let row = [
@@ -37,7 +37,7 @@ module.exports = (name, report, showStats, trend) => {
           ],
         ];
 
-        if (showStats) {
+        if (cmd.stats) {
           const barsConfig = { colors: [asciichart.red, asciichart.blue, asciichart.green], height: 15 };
           const trends = trend[`${(country + (state ? state : '')).replace(/\s/g, '').toLowerCase()}`];
           if (trends) {
@@ -68,6 +68,16 @@ module.exports = (name, report, showStats, trend) => {
       })
       .reduce((a, b) => a.concat(b))
   );
+
+  if (cmd.limit) {
+    const hasStats = cmd.stats ? 2 : 1;
+    if (cmd.limit.includes(':')) {
+      const [from, limit] = cmd.limit.split(':').map((val) => parseInt(val, 10));
+      dataTable = dataTable.slice((from - 1) * hasStats, (from - 1 + limit) * hasStats);
+    } else {
+      dataTable = dataTable.slice(0, parseInt(cmd.limit, 10) * hasStats);
+    }
+  }
 
   console.log(dataTable.toString());
 };
