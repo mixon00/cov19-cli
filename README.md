@@ -1,4 +1,6 @@
-# cov19
+<p align="center">
+ <img src="https://repository-images.githubusercontent.com/272448130/983ae580-b23c-11ea-874a-e8ce6fc2d7f5">
+</p>
 
 [![npm](https://img.shields.io/npm/v/@mixon00/cov19.svg)][npm-link]
 [![license](https://img.shields.io/github/license/mixon00/cov19-cli.svg)][mit-license]
@@ -15,14 +17,14 @@ $ npm i -g @mixon00/cov19
 
 ## Usage
 
-### Get stats for world and watched countries
+### Get stats for world and favourites countries
 
 ```sh
 $ cov19
 ```
 
 <p align="center">
- <img src="https://raw.githubusercontent.com/mixon00/cov19-cli/master/docs/render1592521435578.gif">
+ <img src="https://raw.githubusercontent.com/mixon00/cov19-cli/master/docs/render1593015600432.gif">
 </p>
 
 ### Get stats for country by country name
@@ -44,7 +46,23 @@ $ cov19 "New York"
 ```
 
 <p align="center">
- <img src="https://raw.githubusercontent.com/mixon00/cov19-cli/master/docs/render1592406947334.gif">
+ <img src="https://raw.githubusercontent.com/mixon00/cov19-cli/master/docs/render1593015314848.gif">
+</p>
+
+### Show detailed stats
+
+```sh
+$ cov19 -s
+```
+
+or
+
+```sh
+$ cov19 Poland -s
+```
+
+<p align="center">
+ <img src="https://raw.githubusercontent.com/mixon00/cov19-cli/master/docs/render1593016893891.gif">
 </p>
 
 ### Add to favourites
@@ -60,7 +78,7 @@ $ cov19 Poland --add
 ```
 
 <p align="center">
- <img src="https://raw.githubusercontent.com/mixon00/cov19-cli/master/docs/render1592521726425.gif">
+ <img src="https://raw.githubusercontent.com/mixon00/cov19-cli/master/docs/render1593014914515.gif">
 </p>
 
 ### Remove from favourites
@@ -82,24 +100,49 @@ $ cov19 -r
 ```
 
 <p align="center">
- <img src="https://raw.githubusercontent.com/mixon00/cov19-cli/master/docs/render1592522822747.gif">
+ <img src="https://raw.githubusercontent.com/mixon00/cov19-cli/master/docs/render1593016145609.gif">
+</p>
+
+### Limit displayed results
+
+```sh
+$ cov19 us -l <limit>
+$ cov19 us -l 3
+```
+
+### or limit displayed result starting from selected position
+
+```sh
+$ cov19 us -l <from:limit>
+$ cov19 us -l 2:5
+```
+
+<p align="center">
+ <img src="https://raw.githubusercontent.com/mixon00/cov19-cli/master/docs/render1593017962811.gif">
 </p>
 
 ### Display list of favourites
 
 ```sh
-$ cov19 -l
+$ cov19 -f
 ```
 
 or
 
 ```sh
-$ cov19 --list
+$ cov19 --favourites
 ```
 
 <p align="center">
- <img src="https://raw.githubusercontent.com/mixon00/cov19-cli/master/docs/render1592523398745.gif">
+ <img src="https://raw.githubusercontent.com/mixon00/cov19-cli/master/docs/render1593016045911.gif">
 </p>
+
+### Show about tool
+
+```sh
+$ cov19 --about
+```
+
 
 ## Prerequisites
 
