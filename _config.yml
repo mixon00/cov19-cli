@@ -1,1 +1,14 @@
-theme: jekyll-theme-cayman
+# theme: jekyll-theme-cayman
+remote_theme: rohanchandra/type-theme
+url: "https://cov19.js.org"
+theme:
+  title: Cov19
+  description: Cov19 - COVID-19 CLI Tool
+  rss: false
+  email_address: mixon00@gmail.com
+  facebook: mateusz.misztoft
+  instagram: mixon00
+  linkedin: https://www.linkedin.com/in/mateusz-misztoft
+  twitter: mixon00
+
+  google_fonts: "Source+Sans+Pro:400,700,700italic,400italic"
