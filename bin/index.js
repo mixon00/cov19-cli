@@ -7,7 +7,7 @@ const { program } = require('commander');
 const Configstore = require('configstore');
 
 const pkg = require(path.join(__dirname, '../package.json'));
-const cache = new Configstore(pkg.name, { lastUpdate: null, data: null, favs: [] });
+const cache = new Configstore(pkg.name, { lastUpdate: null, report: null, trend: null, favs: [] });
 
 const defaultCmd = require('./commands/default.cmd');
 const byCountryCmd = require('./commands/byCountry.cmd');
@@ -20,6 +20,7 @@ const api = require('./constants/api.constant');
 
 const lastUpdateService = require('./services/lastUpdate.service');
 const reportService = require('./services/report.service');
+const trendService = require('./services/trend.service');
 
 logo();
 
@@ -28,11 +29,15 @@ const hasUpdatedData = async () => {
   const lastUpdate = await lastUpdateService();
 
   if (cache.get('lastUpdate') !== lastUpdate) {
-    spinner.text = 'Fetching data';
+    spinner.text = 'Fetching report data';
     const report = await reportService();
+
+    spinner.text = 'Fetching trend data';
+    const trend = await trendService();
 
     cache.set('lastUpdate', lastUpdate);
     cache.set('report', report);
+    cache.set('trend', trend);
   }
 
   spinner.stop();
@@ -52,6 +57,7 @@ const hasUpdatedData = async () => {
     .option('-a, --add', 'Add to favourites')
     .option('-r, --remove', 'Remove from favourites')
     .option('-l, --list', 'Show list of favourites')
+    .option('-s, --stats', 'Show detailed stats')
     .action(async (country, cmd) => {
       if (cmd.add && cmd.remove) {
         console.error(chalk.red('Choose only one option: --add or --remove'));
@@ -69,12 +75,20 @@ const hasUpdatedData = async () => {
 
       if (country) {
         await hasUpdatedData();
-        const report = cache.get('report')
-        return byCountryCmd(country, report);
+        const report = cache.get('report');
+        const trend = cache.get('trend');
+        return byCountryCmd(country, report, cmd.stats, trend);
       }
 
       if (cmd.list) {
         return listCmd(cache);
+      }
+
+      if (cmd.stats) {
+        await hasUpdatedData();
+        const report = cache.get('report');
+        const trend = cache.get('trend');
+        return defaultCmd(cache, cmd.stats, trend);
       }
     });
 
