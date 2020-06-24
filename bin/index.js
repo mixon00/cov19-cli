@@ -56,7 +56,7 @@ const hasUpdatedData = async () => {
     .description('Show stats for selected country by country name, code or state')
     .option('-a, --add', 'Add to favourites')
     .option('-r, --remove', 'Remove from favourites')
-    .option('-l, --list', 'Show list of favourites')
+    .option('-f, --favourites', 'Show list of favourites')
     .option('-s, --stats', 'Show detailed stats')
     .action(async (country, cmd) => {
       if (cmd.add && cmd.remove) {
@@ -80,7 +80,7 @@ const hasUpdatedData = async () => {
         return byCountryCmd(country, report, cmd.stats, trend);
       }
 
-      if (cmd.list) {
+      if (cmd.favourites) {
         return listCmd(cache);
       }
 
