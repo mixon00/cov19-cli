@@ -11,5 +11,5 @@ module.exports = () => {
       })
     )
   );
-  console.log(`    ${chalk.bold.yellow('COVID-19')} CLI Tool by: ${chalk.bold.blue('Mateusz Misztoft')}\n`);
+  console.log(`    ${chalk.bold.yellow('COVID-19')} CLI Tool ${chalk.bold.blue('https://cov19.js.org')}\n`);
 };

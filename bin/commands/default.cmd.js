@@ -2,7 +2,7 @@ const chalk = require('chalk');
 const table = require('../utils/table.util');
 const byCountry = require('./byCountry.cmd');
 
-module.exports = async (data) => {
+module.exports = async (data, showStats, trend) => {
   const favs = data.get('favs');
   const report = data.get('report');
   const { confirmed, recovered, deaths, critical, tests } = report.regions.world.totals;
@@ -23,6 +23,6 @@ module.exports = async (data) => {
 
   if (favs.length > 0) {
     console.log(chalk.bold('\n Favourites:'));
-    byCountry(favs, report);
+    byCountry(favs, report, showStats, trend);
   }
 };
