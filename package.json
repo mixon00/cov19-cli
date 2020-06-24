@@ -1,6 +1,6 @@
 {
   "name": "@mixon00/cov19",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "COVID-19 CLI Tool",
   "files": [
     "/bin"
