@@ -38,7 +38,7 @@
     "chalk": "^4.1.0",
     "cli-table3": "^0.6.0",
     "commander": "^5.1.0",
-    "configstore": "^5.0.1",
+    "configstore": "^6.0.0",
     "enquirer": "^2.3.5",
     "figlet": "^1.4.0",
     "node-fetch": "^2.6.0",
